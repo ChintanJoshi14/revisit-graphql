@@ -5,6 +5,7 @@ const {
   GraphQLSchema,
   GraphQLID,
   GraphQLString,
+  GraphQLEnumType,
 } = require("graphql");
 
 //getting mongoose models here
@@ -116,6 +117,83 @@ const RootMutation = new GraphQLObjectType({
       },
       resolve: (parent, args) => {
         return Client.findByIdAndRemove(args.id);
+      },
+    },
+    //Add a Project
+    addProject: {
+      type: ProjectType,
+      description: "Add a Project",
+      args: {
+        name: { type: GraphQLNonNull(GraphQLString) },
+        description: { type: GraphQLNonNull(GraphQLString) },
+        status: {
+          type: new GraphQLEnumType({
+            name: "ProjectStatus",
+            description: "This represent an Enum type",
+            values: {
+              NOT_STARTED: { value: "Not Started" },
+              IN_PROGRESS: { value: "In Progress" },
+              COMPLETED: { value: "Completed" },
+            },
+          }),
+          defaultValue: "NOT_STARTED",
+        },
+        clientId: { type: GraphQLNonNull(GraphQLID) },
+      },
+      resolve: (parent, args) => {
+        const project = new Project({
+          name: args.name,
+          description: args.description,
+          status: args.status,
+          clientId: args.clientId,
+        });
+        return project.save();
+      },
+    },
+    //Remove project
+    removeProject: {
+      type: ProjectType,
+      description: "Remove a Project",
+      args: {
+        id: { type: GraphQLNonNull(GraphQLID) },
+      },
+      resolve: (parent, args) => {
+        return Project.findByIdAndRemove(args.id);
+      },
+    },
+    //Update Project details
+    updateProject: {
+      type: ProjectType,
+      description: "Update Project details",
+      args: {
+        id: { type: GraphQLNonNull(GraphQLString) },
+        name: { type: GraphQLString },
+        description: { type: GraphQLString },
+        status: {
+          type: new GraphQLEnumType({
+            name: "UpdateProjectStatus",
+            description: "This represent an Enum type",
+            values: {
+              NOT_STARTED: { value: "Not Started" },
+              IN_PROGRESS: { value: "In Progress" },
+              COMPLETED: { value: "Completed" },
+            },
+          }),
+        },
+      },
+      resolve: (parent, args) => {
+        return Project.findByIdAndUpdate(
+          args.id,
+          {
+            $set: {
+              name: args.name,
+              description: args.description,
+              status: args.status,
+            },
+          },
+          //this will create a new project if project does not already exists
+          { new: true }
+        );
       },
     },
   }),
