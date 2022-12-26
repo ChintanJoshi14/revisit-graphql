@@ -19,13 +19,13 @@ const ClientType = new GraphQLObjectType({
     name: { type: GraphQLString },
     email: { type: GraphQLString },
     phone: { type: GraphQLString },
-    project: {
-      type: ProjectType,
-      resolve: (parent) => {
-        // return projects.find((project) => project.clientId === parent.id);
-        return Project.findById(parent.id);
-      },
-    },
+      // project: {
+      //   type: ProjectType,
+      //   resolve: (parent) => {
+      //     // return projects.find((project) => project.clientId === parent.id);
+      //     return Project.findById(parent.id);
+      //   },
+      // },
   }),
 });
 const ProjectType = new GraphQLObjectType({

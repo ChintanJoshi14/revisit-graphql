@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@apollo/client": "^3.7.2",
+    "@apollo/client": "^3.7.3",
     "bootstrap": "^5.2.3",
     "graphql": "^16.6.0",
     "lodash": "^4.17.21",
