@@ -9,3 +9,18 @@ export const GET_PROJECTS = gql`
     }
   }
 `;
+
+export const GET_SINGLE_PROJECT = gql`
+  query getSingleProject($id: ID!) {
+    project(id: $id) {
+      name
+      description
+      status
+      client {
+        name
+        email
+        phone
+      }
+    }
+  }
+`;

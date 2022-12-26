@@ -7,7 +7,7 @@ import { GET_CLIENTS } from "../queries/ClientQueries";
 const Clients = () => {
   const { loading, error, data } = useQuery(GET_CLIENTS);
   if (loading) return <Spin />;
-  if (error) return <Error />;
+  if (error) return <Error message={"Oops, something went wrong!"} />;
   return (
     <>
       {!loading && !error && (
