@@ -1,5 +1,6 @@
 import Clients from "../src/components/Clients";
 import AddClient from "../src/components/Modals/AddClient";
+import AddProject from "../src/components/Modals/AddProject";
 import Projects from "../src/components/Projects";
 
 export default function Home() {
@@ -8,6 +9,7 @@ export default function Home() {
     <div className="container">
       <div class="d-flex gap-3 mb-4">
         <AddClient />
+        <AddProject />
       </div>
       <Projects />
       <hr />

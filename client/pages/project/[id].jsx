@@ -6,6 +6,8 @@ import { GET_SINGLE_PROJECT } from "../../src/queries/ProjectQueries";
 import Spin from "../../src/components/Spin";
 import Error from "../../src/components/Error";
 import ClientInfo from "../../src/components/ClientInfo";
+import RemoveProject from "../../src/components/RemoveProject";
+import EditProject from "../../src/components/EditProject";
 
 const SingleProjectDetails = () => {
   const {
@@ -31,7 +33,12 @@ const SingleProjectDetails = () => {
           <p>{data?.project?.description}</p>
           <h5 className="mt-3">Project Status</h5>
           <p className="lead">{data?.project?.status}</p>
+
           <ClientInfo client={data?.project?.client} />
+
+          <EditProject project={data?.project} />
+
+          <RemoveProject projectId={data?.project?.id} />
         </div>
       )}
     </div>
