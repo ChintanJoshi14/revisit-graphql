@@ -13,10 +13,12 @@ export const GET_PROJECTS = gql`
 export const GET_SINGLE_PROJECT = gql`
   query getSingleProject($id: ID!) {
     project(id: $id) {
+      id
       name
       description
       status
       client {
+        id
         name
         email
         phone
